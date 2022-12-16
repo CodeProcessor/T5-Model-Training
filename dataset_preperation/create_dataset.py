@@ -1,5 +1,9 @@
+import os
+
 import pandas as pd
 import spacy
+
+from params import fields
 
 """
 Initial dataset was taken from Kaggle
@@ -15,14 +19,20 @@ train_test_val_split = {
 
 
 def main():
+    csv_lines = []
+    dataset_path = "../dataset/"
+
+    # Load spacy model
     nlp = spacy.load("en_core_web_md")
 
     # read csv file
     df = pd.read_csv('amazon_cells_labelled.csv', delimiter=',', header=None)
 
-    csv_lines = []
+    # create directory if not exists
+    if not os.path.exists(dataset_path):
+        os.makedirs(dataset_path)
 
-    # print first 5 rows
+    # prepare dataset
     for index, row in df.iterrows():
         doc = nlp(row[0])
         stop_words_list = [token.text for token in doc if token.is_stop]
@@ -30,11 +40,17 @@ def main():
         csv_lines.append(row[0] + "~" + ",".join(stop_words_list) + "\n")
 
     total_lines = len(csv_lines)
+    print("Total lines: {}".format(total_lines))
 
+    # Split dataset into train, test and validation
     for key, value in train_test_val_split.items():
         start_index = int(total_lines * value)
         end_index = int(total_lines * (value + train_test_val_split[key]))
-        with open("../dataset/{}_stopwords_dataset.csv".format(key), "w") as f:
+        _file_path = os.path.join(dataset_path, f"{key}_stopwords_dataset.csv")
+
+        print("Writing {} lines to {}".format(end_index - start_index, _file_path))
+        with open(_file_path, "w") as f:
+            f.write("~".join(fields) + "\n")
             f.writelines(csv_lines[start_index:end_index])
 
 

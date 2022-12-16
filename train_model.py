@@ -2,11 +2,10 @@
 import pandas as pd
 from happytransformer import HappyTextToText, TTTrainArgs
 
-from params import init_sentence as ins
+from params import init_sentence as ins, fields
 
 
 def preprocess(csv_file_path: str):
-    fields = ['input', 'target']
 
     df = pd.read_csv(csv_file_path, usecols=fields, delimiter='~')
     print(df.head(10))
