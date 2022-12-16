@@ -45,7 +45,7 @@ def main():
     # Split dataset into train, test and validation
     start_index = 0
     for key, value in train_test_val_split.items():
-        end_index = int(total_lines * train_test_val_split[key])
+        end_index = int(total_lines * train_test_val_split[key]) + start_index
         _file_path = os.path.join(dataset_path, f"{key}_stopwords_dataset.csv")
 
         print("Writing {} lines to {}".format(end_index - start_index, _file_path))
