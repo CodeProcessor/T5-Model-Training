@@ -1,2 +1,2 @@
-init_sentence = "What are the enumerations ? : "
+init_phrase = "What are the stopwords ? : "
 fields = ['input', 'target']

@@ -2,7 +2,7 @@
 import pandas as pd
 from happytransformer import HappyTextToText, TTTrainArgs
 
-from params import init_sentence as ins, fields
+from params import init_phrase as ins, fields
 
 
 def preprocess(csv_file_path: str):

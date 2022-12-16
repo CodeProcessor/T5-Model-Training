@@ -1,7 +1,7 @@
 
 from happytransformer import HappyTextToText, TTSettings
 
-from params import init_sentence as ins
+from params import init_phrase as ins
 
 
 def model_eval_v1():
